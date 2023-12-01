@@ -10,7 +10,7 @@ function Navbar() {
   const handleClick = () => setClick(!click);
   return (
     <>
-      <nav className="Navbar border-b-2 border-blue-400">
+      <nav className="Navbar border-b border-blue-400 bg-gray-900">
         <div className="nav-container">
           <NavLink  to="/" className="nav-logo">
             <span className="max-sm:text-2xl">Man-Comu</span>
