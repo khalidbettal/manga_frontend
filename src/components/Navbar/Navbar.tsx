@@ -4,7 +4,14 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { CodeIcon, HamburgetMenuClose, HamburgetMenuOpen } from "./NavIcons";
 
-function Navbar() {
+
+interface Props {
+  email: string
+}
+
+function Navbar( {email}: Props) {
+
+  
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -65,17 +72,32 @@ function Navbar() {
                 Contact Us
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                
-                to="/login"
-                
-                className="nav-links"
-                onClick={handleClick}
-              >
-                Login
-              </NavLink>
-            </li>
+            {email ? (
+              <li className="nav-item">
+                <NavLink
+                  
+                  to="/profile"
+                  
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Profile
+                </NavLink>
+              </li>
+            ) : (
+               <li className="nav-item">
+               <NavLink
+                 
+                 to="/login"
+                 
+                 className="nav-links"
+                 onClick={handleClick}
+               >
+                 Login
+               </NavLink>
+             </li>
+            )}
+           
           </ul>
           <div className="nav-icon" onClick={handleClick}>
             {/* <i className={click ? "fas fa-times" : "fas fa-bars"}></i> */}

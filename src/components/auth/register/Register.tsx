@@ -1,14 +1,31 @@
 
 import { Link } from "react-router-dom";
 import { TEInput, TERipple } from "tw-elements-react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../../store/auth/authSlice";
 
-export default function Login(): JSX.Element {
+export default function Register(): JSX.Element {
+  
+  const dispatch = useDispatch();
+   const [Data , setData] = useState({
+    name : "",
+    email : "",
+    password : "",
+    password_confirmation : "",
+   })
+
+   const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(registerUser(Data));
+   }
+
   return (
-    <section className="h-screen sm:mx-10">
-      <div className=" h-full px-6 py-24">
+    <section className="h-full py-20 sm:mx-10">
+      <div className=" h-full px-6 ">
         <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
           {/* <!-- Left column container with background--> */}
-          <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
+          <div className="py-3 md:w-8/12 lg:w-6/12">
             <img
               src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
               className="w-full"
@@ -18,13 +35,15 @@ export default function Login(): JSX.Element {
 
           {/* <!-- Right column container with form --> */}
           <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-            <form>
-                {/* <!-- Username input --> */}
+            <form onSubmit={handleRegister}>
+                {/* <!-- name input --> */}
                 <TEInput
                 type="text"
                 label="Username"
                 size="lg"
                 className="mb-6"
+                value={Data.name}
+                onChange={(e) => setData({...Data , name : e.target.value})}
               ></TEInput>
 
               {/* <!-- Email input --> */}
@@ -33,6 +52,8 @@ export default function Login(): JSX.Element {
                 label="Email address"
                 size="lg"
                 className="mb-6"
+                value={Data.email}
+                onChange={(e) => setData({...Data , email : e.target.value})}
               ></TEInput>
 
               {/* <!--Password input--> */}
@@ -41,6 +62,8 @@ export default function Login(): JSX.Element {
                 label="Password"
                 className="mb-6"
                 size="lg"
+                value={Data.password}
+                onChange={(e) => setData({...Data , password : e.target.value})}
               ></TEInput>
  
               {/* <!--Password_confirm input--> */}
@@ -49,6 +72,8 @@ export default function Login(): JSX.Element {
                 label="Confirm Password"
                 className="mb-6"
                 size="lg"
+                value={Data.password_confirmation}
+                onChange={(e) => setData({...Data , password_confirmation : e.target.value})}
               ></TEInput>
 
 
@@ -56,13 +81,16 @@ export default function Login(): JSX.Element {
 
               <TERipple rippleColor="light" className="w-full">
                 <button
-                  type="button"
+                  type="submit"
                   className="inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                 >
                   Sign Up
                 </button>
               </TERipple>
 
+            
+             
+            </form>
               {/* <!-- Divider --> */}
               <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                 <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
@@ -71,7 +99,7 @@ export default function Login(): JSX.Element {
               </div>
 
               {/* <!-- Social login buttons --> */}
-              <TERipple rippleColor="light" className="w-full">
+              <TERipple rippleColor="light" className="w-full pb-3">
                 <button
                   className="mb-3 flex w-full items-center justify-center 
                   rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium 
@@ -99,7 +127,7 @@ export default function Login(): JSX.Element {
                 </button>
               </TERipple>
 
-              <div className="flex items-center mt-4 justify-center">
+              <div className="flex items-center justify-center">
                 <p className="mb-0 mr-2">Already have an account?</p>
               <TERipple rippleColor="light">
                 <Link to="/login">
@@ -114,8 +142,6 @@ export default function Login(): JSX.Element {
                 </Link>
                 </TERipple>
                  </div>
-             
-            </form>
           </div>
         </div>
       </div>
